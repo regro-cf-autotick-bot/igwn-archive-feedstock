@@ -6,28 +6,29 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/igwn-archive-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/igwn-archive-{{ version }}.tar.gz
   sha256: b54fe372b8fb46151e14310530ed17f871fa9b348cf8b336cb39216b18eb7f10
 
 build:
   entry_points:
     - igwn-source-upload = igwn_archive.source:main
   noarch: python
-  number: 0
+  number: 1
   script: {{ PYTHON }} -m pip install . -vv
 
 requirements:
   host:
     - pip
-    - python >=3.6
+    - python {{ python_min }}
     - setuptools >=30.3.0
     - wheel
   run:
-    - python >=3.6
+    - python >={{ python_min }}
 
 test:
   requires:
     - pip
+    - python {{ python_min }}
   imports:
     - igwn_archive
   commands:
